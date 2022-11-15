@@ -1,25 +1,61 @@
-<div class="card">
-    <img src="{{product.imageUrl}}" class="card-img-top" *ngIf="product.imageUrl">
-    <div class="card-body">
-        <h4 class="card-title">{{product.title}}</h4>
-        <p class="card-text">{{product.price | currency:'USD': true}}</p>
+<div
+  class="w-full max-w-sm mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
+>
+  <a
+    routerLink="#"
+    class="block relative h-72 rounded overflow-hidden p-5 mx-auto"
+  >
+    <img
+      class="object-cover object-center w-auto h-full block mx-auto"
+      src="{{ product.imageUrl }}"
+      alt="product image"
+      *ngIf="product.imageUrl"
+    />
+  </a>
+  <div class="px-5 pb-5">
+    <a routerLink="#">
+      <h5
+        class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white mb-2"
+      >
+        {{ product.title }}
+      </h5>
+    </a>
+
+    <div class="flex justify-between items-center">
+      <span class="text-xl font-bold text-gray-900 dark:text-white">{{
+        product.price | currency: "USD":true
+      }}</span>
+      <button
+        *ngIf="getQuantity() === 0; else updateQuantity"
+        (click)="addToCart()"
+        class="py-2 px-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Add to cart
+      </button>
+      <ng-template #updateQuantity>
+        <div class="inline-flex rounded-md shadow-sm" role="group">
+          <button
+            type="button"
+            (click)="removeFromCart()"
+            class="inline-flex items-center py-2 px-2 text-sm font-medium text-gray-900 bg-transparent rounded-l-lg border border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+          >
+            <fa-icon [icon]="faMinus"></fa-icon>
+          </button>
+          <button
+            type="button"
+            class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 bg-transparent border-t border-b border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+          >
+            {{ getQuantity() }}
+          </button>
+          <button
+            type="button"
+            (click)="addToCart()"
+            class="inline-flex items-center py-2 px-2 text-sm font-medium text-gray-900 bg-transparent rounded-r-md border border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+          >
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </button>
+        </div>
+      </ng-template>
     </div>
-    <div class="card-footer" *ngIf="showActions">
-        <button
-        *ngIf="getQuantity()===0;else updateQuantity"
-        (click)="addToCart()" class="btn btn-secondary btn-block">Add to Cart</button>
-        <ng-template #updateQuantity>
-            <div class="row no-gutters">
-                <div class="col-2">
-                    <button class="btn btn-secondary btn-block" (click)="removeFromCart()">-</button>
-                </div>
-                <div class="col text-center">
-                    {{getQuantity()}}
-                </div>
-                <div class="col-2">
-                    <button class="btn btn-secondary btn-block" (click)="addToCart()">+</button>
-                </div>
-            </div>
-        </ng-template>
-    </div>
+  </div>
 </div>

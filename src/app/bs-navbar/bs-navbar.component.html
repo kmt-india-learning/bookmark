@@ -1,39 +1,186 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" routerLink="/">bookmark</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/shopping-cart">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
-              <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-            </svg>
-            <span class="badge badge-warning badge-pill" *ngIf="shoppingCartItemCount>0">
-              {{shoppingCartItemCount}}
-            </span>
-          </a>
-        </li>
-        <ng-template #anonymousUser>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
-          </li>
-        </ng-template>
-        <li ngbDropdown class="nav-item dropdown" *ngIf="appUser; else anonymousUser">
-          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{appUser.name}}
-          </a>
-          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
-            <ng-container *ngIf="appUser.isAdmin">
-              <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
-              <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
-            </ng-container>
-            <a class="dropdown-item logout" (click)="logout()">Logout</a>
+<nav
+  class="bg-white px-2 sm:px-4 py-2 dark:bg-gray-800 sticky shadow-xl w-full z-20 top-0 left-0 border-gray-200"
+>
+  <div class="container flex flex-wrap justify-between items-center mx-auto">
+    <a routerLink="" class="flex items-center">
+      <!-- <img src="..." class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"> -->
+      <span
+        class="self-center text-xl font-semibold whitespace-nowrap dark:text-white mr-1"
+      >
+        <fa-icon [icon]="faBookBookmark"></fa-icon>
+      </span>
+      <span
+        class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+        >Bookmark</span
+      >
+    </a>
+    <div class="flex items-center md:order-2">
+      <button
+        id="theme-toggle"
+        type="button"
+        (click)="themeToggle()"
+        class="mr-2 dark:text-white inline-flex items-center text-sm font-medium text-center rounded-lg focus:outline-none p-2.5 w-10 h-10 dark:hover:text-gray-300 hover:text-blue-700"
+      >
+        <span
+          id="theme-toggle-dark-icon"
+          class="w-5 h-5"
+          [class]="isDarkTheme ? 'block' : 'hidden'"
+        >
+          <fa-icon [icon]="faMoon"></fa-icon>
+        </span>
+
+        <span
+          id="theme-toggle-light-icon"
+          class="w-5 h-5"
+          [class]="isDarkTheme ? 'hidden' : 'block'"
+        >
+          <fa-icon [icon]="faSun"></fa-icon>
+        </span>
+      </button>
+      <a
+        class="mr-5 dark:text-white inline-flex items-center text-sm font-medium text-center rounded-lg focus:outline-none dark:hover:text-gray-300 hover:text-blue-700"
+        routerLink="/shopping-cart"
+      >
+        <fa-icon [icon]="faCartShopping"></fa-icon>
+        <span
+          class="inline-flex justify-center items-center ml-1 w-4 h-4 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full"
+          *ngIf="shoppingCartItemCount > 0"
+          >{{ shoppingCartItemCount }}
+        </span>
+      </a>
+      <ng-template #anonymousUser>
+        <a
+          routerLink="/login"
+          #anonymousUser
+          class="py-1 px-3 md:px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >Login&nbsp;
+          <fa-icon [icon]="faArrowRightToBracket"></fa-icon>
+        </a>
+      </ng-template>
+      <div
+        *ngIf="appUser; else anonymousUser"
+        class="relative inline-block text-left"
+      >
+        <button
+          type="button"
+          class="flex mr-3 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          id="user-menu-button"
+          (click)="showUserDetail()"
+        >
+          <span class="sr-only">Open user menu</span>
+          <img
+            class="w-8 h-8 rounded-full"
+            src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+            alt="user photo"
+          />
+          <!-- <fa-icon [icon]="faUserCircle" class="w-8 h-8"></fa-icon> -->
+        </button>
+        <!-- Dropdown menu -->
+        <div
+          class="z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 origin-top-right absolute right-0 mt-2 w-auto min-w-40"
+          id="user-dropdown"
+          [class]="showUserMenu ? 'block' : 'hidden'"
+        >
+          <div class="py-3 px-4">
+            <span class="block text-sm text-gray-900 dark:text-white">{{
+              appUser.name
+            }}</span>
+            <span
+              class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"
+              >{{ appUser.email }}</span
+            >
           </div>
+          <ul class="py-1" aria-labelledby="user-menu-button">
+            <li>
+              <a
+                routerLink="/#"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >My Orders</a
+              >
+            </li>
+            <ng-container *ngIf="appUser.isAdmin">
+              <li>
+                <a
+                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  role="menuitem"
+                  routerLink="/my/orders"
+                  routerLink="/admin/orders"
+                >
+                  <span class="flex flex-col">
+                    <span> Manage Orders </span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  role="menuitem"
+                  routerLink="/my/orders"
+                  routerLink="/admin/products"
+                >
+                  <span class="flex flex-col">
+                    <span> Manage Products </span>
+                  </span>
+                </a>
+              </li>
+            </ng-container>
+            <li>
+              <a
+                (click)="logout()"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer"
+                >Logout</a
+              >
+            </li>
+            <!-- <li>
+            <a routerLink="/#"
+              class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+          </li>
+          <li>
+            <a routerLink="/#"
+              class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+              out</a>
+          </li> -->
+          </ul>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="inline-flex items-center p-1 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        (click)="showMobileMenu()"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-6 h-6"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <div
+      class="justify-between items-center w-full md:flex md:w-auto md:order-1"
+      id="mobile-menu-2"
+      [class]="isOpen ? 'block' : 'hidden'"
+    >
+      <ul
+        class="flex flex-col p-2 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 dark:border-gray-800"
+      >
+        <li>
+          <input
+            type="text"
+            id="text"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-80 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search for a product..."
+          />
         </li>
       </ul>
     </div>
-  </nav>
+  </div>
+</nav>
