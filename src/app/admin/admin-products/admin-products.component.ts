@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/product.service';
@@ -12,8 +13,9 @@ export class AdminProductsComponent implements OnDestroy{
   products:Product[];
   filteredProducts:Product[];
   subscription:Subscription;
+  faPlus = faPlus;
 
-  constructor(private productsService:ProductService) { 
+  constructor(private productsService:ProductService) {
     this.subscription= productsService.getProducts().subscribe(products=>this.products=this.filteredProducts=products);
   }
 

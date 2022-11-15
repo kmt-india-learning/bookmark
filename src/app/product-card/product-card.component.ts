@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Product } from '../models/product';
 import { ShoppingCartService } from '../shopping-cart.service';
 
@@ -9,25 +10,28 @@ import { ShoppingCartService } from '../shopping-cart.service';
 })
 export class ProductCardComponent {
 
-  @Input("product") product:Product;
-  @Input("show-actions") showActions=true;
-  @Input("shopping-cart-items") shoppingCartItems:any;
+  @Input("product") product: Product;
+  @Input("show-actions") showActions = true;
+  @Input("shopping-cart-items") shoppingCartItems: any;
 
-  constructor(private cartService:ShoppingCartService) { }
+  faPlus = faPlus;
+  faMinus = faMinus;
 
-  addToCart(){
+  constructor(private cartService: ShoppingCartService) { }
+
+  addToCart() {
     this.cartService.addToCart(this.product);
   }
-  
-  removeFromCart(){
+
+  removeFromCart() {
     this.cartService.removeFromCart(this.product);
   }
 
-  getQuantity(){
-    if(!this.shoppingCartItems) return 0;
-    
-    let itemArr=this.shoppingCartItems.filter((p:any)=>p.product.customID===this.product.customID)
-    if(itemArr.length >0) return itemArr[0].quantity; 
+  getQuantity() {
+    if (!this.shoppingCartItems) return 0;
+
+    let itemArr = this.shoppingCartItems.filter((p: any) => p.product.customID === this.product.customID)
+    if (itemArr.length > 0) return itemArr[0].quantity;
     else return 0;
   }
 }
