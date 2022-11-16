@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../auth.service';
+import { AppUser } from '../models/app-user';
 import { Product } from '../models/product';
 import { ShoppingCartService } from '../shopping-cart.service';
 
@@ -13,33 +15,29 @@ export class ShoppingCartComponent implements OnInit {
   @Input("product") product: Product;
   @Input("show-actions") showActions = true;
   @Input("shopping-cart-items") shoppingCartItems: any;
+  appUser: AppUser
   shoppingCartItemCount: number;
   cart$: any;
   cartItemsArray: any[] = [];
   faMinus = faMinus;
   faPlus = faPlus;
-  constructor(private cartService: ShoppingCartService, private _location: Location) { }
+  constructor(private auth: AuthService, private cartService: ShoppingCartService, private _location: Location) { }
 
   async ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
     this.cart$ = await this.cartService.getCartItems();
     this.cart$.subscribe((cartItems: any) => {
       this.shoppingCartItemCount = 0;
-      this.cartItemsArray = cartItems;
       for (let productId in this.cartItemsArray)
         this.shoppingCartItemCount += this.cartItemsArray[productId].quantity;
-      for (let productId in this.cartItemsArray){
-        if (parseInt(this.cartItemsArray[productId].quantity) === 0)
-          {
-          let index = this.cartItemsArray.indexOf(this.cartItemsArray[productId]);
-
-          this.cartItemsArray.splice(index, 1);
-          }
+      for (let productId in cartItems) {
+        if (cartItems[productId].quantity > 0) {
+          this.cartItemsArray.push(cartItems[productId]);
+        }
       }
-      console.log(this.cartItemsArray);
 
     }
     );
-
   }
 
   get totalPrice() {

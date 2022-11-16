@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,9 +10,9 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
-  constructor(private auth:AuthService,private router:Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
-  login(){
+  login() {
     this.auth.login();
   }
 }

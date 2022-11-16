@@ -1,5 +1,5 @@
 <ng-container *ngIf="cart$ | async as cartItems">
-  <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+  <div class="py-8 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
     <div class="flex justify-start item-start space-y-2 flex-col">
       <h1
         class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800"
@@ -159,7 +159,7 @@
                 <p
                   class="text-base dark:text-white font-semibold leading-4 text-left text-gray-800"
                 >
-                  David Kent
+                  {{ appUser.name }}
                 </p>
                 <p class="text-sm dark:text-gray-300 leading-5 text-gray-600">
                   10 Previous Orders
@@ -180,7 +180,9 @@
                 src="https://tuk-cdn.s3.amazonaws.com/can-uploader/order-summary-3-svg1dark.svg"
                 alt="email"
               />
-              <p class="cursor-pointer text-sm leading-5">david89@gmail.com</p>
+              <p class="cursor-pointer text-sm leading-5">
+                {{ appUser.email }}
+              </p>
             </div>
           </div>
           <div
@@ -190,7 +192,7 @@
               class="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 md:flex-row items-center md:items-start mb-4"
             >
               <div
-                class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8"
+                class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8 mb-3"
               >
                 <p
                   class="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800"
@@ -222,12 +224,12 @@
               class="flex w-full flex-col justify-center items-center md:justify-start md:items-start"
             >
               <button
-                class="my-3 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 w-full 2xl:w-full text-base font-medium leading-4 text-gray-800"
+                class="my-3 dark:border-white dark:hover:bg-blue-600 dark:bg-transparent dark:text-white py-5 hover:bg-blue-600 border border-gray-800 w-full 2xl:w-full text-base font-medium leading-4 text-gray-800"
               >
                 Edit Details
               </button>
               <button
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 px-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-3 dark:border-white dark:bg-transparent dark:text-white py-5 focus:ring-offset-2 border border-gray-800 w-full text-base font-medium leading-4"
+                class="text-white bg-blue-700 hover:bg-blue-800 px-5 dark:bg-blue-600 dark:hover:bg-blue-700 my-3 dark:border-white dark:bg-transparent dark:text-white py-5 border border-gray-800 w-full text-base font-medium leading-4"
               >
                 Continue to Checkout
               </button>

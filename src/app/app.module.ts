@@ -61,7 +61,7 @@ import { UserService } from './user.service';
     AngularFirestoreModule,
     FormsModule,
     CustomFormsModule,
-    DataTablesModule
+    DataTablesModule,
   ],
   providers: [
     AuthService,

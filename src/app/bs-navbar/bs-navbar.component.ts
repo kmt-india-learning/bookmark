@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faArrowRightToBracket, faBookBookmark, faBookmark, faCartShopping, faMoon, faSun, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightToBracket, faCartShopping, faBookBookmark, faUserCircle, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth.service';
 import { AppUser } from '../models/app-user';
 import { ShoppingCartService } from '../shopping-cart.service';
@@ -46,7 +46,6 @@ export class BsNavbarComponent implements OnInit {
     }
 
   }
-
   showUserDetail = () => {
     this.showUserMenu = !this.showUserMenu;
   }
@@ -54,15 +53,6 @@ export class BsNavbarComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
   themeToggle() {
-    // var themeToggleBtn = document.getElementById('theme-toggle');
-    // var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    // var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-    // var themeToggleBtn = document.getElementById('theme-toggle');
-    // // toggle icons inside button
-    // themeToggleDarkIcon.classList.toggle('hidden');
-    // themeToggleLightIcon.classList.toggle('hidden');
-
     // if set via local storage previously
     if (localStorage.getItem('color-theme')) {
       if (localStorage.getItem('color-theme') === 'light') {
